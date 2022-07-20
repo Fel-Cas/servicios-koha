@@ -22,9 +22,11 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Servicios Koha - Biblioteca de la Universidad de Antioquia
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Este proyecto se realiza con el fin de crear servicios para que sean utilizados por la aplicación biblioApp, ya que con el cambio de software utilizado en la biblioteca  no se tendrían estos servicios que son indispensables para el funcionamiento de la aplicación. 
+Este proyecto fue realizado con el framework basado en NodeJs [Nest](https://github.com/nestjs/nest)
+
 
 ## Installation
 
