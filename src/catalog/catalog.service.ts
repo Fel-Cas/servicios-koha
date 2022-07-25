@@ -1,26 +1,20 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCatalogDto } from './dto/create-catalog.dto';
-import { UpdateCatalogDto } from './dto/update-catalog.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { CatalogRepository } from './repository/catalogRepository';
 
 @Injectable()
 export class CatalogService {
-  create(createCatalogDto: CreateCatalogDto) {
-    return 'This action adds a new catalog';
-  }
+  constructor(
+    private readonly catalogRepository: CatalogRepository
+  ){}
 
-  findAll() {
-    return `This action returns all catalog`;
-  }
+  async getBooksByName(book: string){
 
-  findOne(id: number) {
-    return `This action returns a #${id} catalog`;
-  }
+    const booksFound = await this.catalogRepository.getBooksByName(book);
 
-  update(id: number, updateCatalogDto: UpdateCatalogDto) {
-    return `This action updates a #${id} catalog`;
-  }
+    if(booksFound.length===0){
+      throw new NotFoundException(`No se encontraron coincidencias con el libro ${book}`);
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} catalog`;
+    return booksFound;
   }
 }
