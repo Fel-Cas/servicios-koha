@@ -8,10 +8,6 @@ export class UserService {
     private readonly userRepository: UserRepository
   ){}
 
-  async findAll() {
-    return await  this.userRepository.getAll();
-  }
-
   async findOne(id: number) {
     const user=await this.userRepository.getById(id);
     if(user.length==0) throw new NotFoundException("El usuario no existe");

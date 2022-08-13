@@ -16,10 +16,6 @@ export class UserRepository{
         
     }
 
-    async getAll(){
-        return await this.connection.query(`SELECT borrowernumber,cardnumber,firstname,surname,email,phone,mobile FROM borrowers2;`);
-    }
-
    async getById(id:number){
         return  this.connection
         .query(`SELECT borrowernumber,cardnumber,firstname,surname,email,phone,mobile FROM borrowers2 WHERE cardnumber=${id};`);
