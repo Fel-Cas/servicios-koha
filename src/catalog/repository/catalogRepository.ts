@@ -9,7 +9,7 @@ export class CatalogRepository {
         private readonly connection: DataSource
     ){}
 
-    async getBooksByName(book: string){
+    async getBooksByName(book: String){
         return await this.connection.query(`select title as titulo, author as autor, bitm.isbn, bitm.publicationyear  from biblio bi 
         inner join biblioitems bitm on bi.biblionumber=bitm.biblioitemnumber
         where bi.title like '%${book}%' or bi.author like '%${book}%';   `);
