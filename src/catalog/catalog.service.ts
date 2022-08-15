@@ -17,4 +17,12 @@ export class CatalogService {
 
     return booksFound;
   }
+
+  async getBookByISBN(isbn:string){
+    const bookFound= await this.catalogRepository.getBookByISBN(isbn);
+    if(bookFound.length===0){
+      throw new NotFoundException(`No se encontraron coincidencias con el libro ${isbn}`);
+    }
+    return bookFound;
+  }
 }

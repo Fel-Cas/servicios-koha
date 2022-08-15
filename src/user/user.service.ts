@@ -10,7 +10,7 @@ export class UserService {
 
   async findOne(id: number) {
     const user=await this.userRepository.getById(id);
-    if(user.length==0) throw new NotFoundException("El usuario no existe");
+    if(user.length===0) throw new NotFoundException("El usuario no existe");
     return user;
   }
 }
