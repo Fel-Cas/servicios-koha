@@ -6,8 +6,8 @@ import { SearchBookDTO } from './dto';
 export class CatalogController {
   constructor(private readonly catalogService: CatalogService) {}
 
-  @Get('/books-by-name/:nameBook')
-  async getBooksByName(book:SearchBookDTO){
+  @Get('/books-by-name/')
+  async getBooksByName(@Body() book:SearchBookDTO){
     const bookFound = await this.catalogService.getBooksByName(book);
     return {meta: {message: `Información de los libros`}, bookFound};
   }
