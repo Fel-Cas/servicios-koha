@@ -10,6 +10,8 @@ export class CatalogRepository {
     ){}
 
     async getBooksByName(book: string){
-        return await this.connection.query(`SELECT * FROM koha.biblio WHERE title LIKE '%${book}%';`);
+        return await this.connection.query(`select title as titulo, author as autor, bitm.isbn, bitm.publicationyear  from biblio bi 
+        inner join biblioitems bitm on bi.biblionumber=bitm.biblioitemnumber
+        where bi.title like '%${book}%' or bi.author like '%${book}%';   `);
     }
 }
