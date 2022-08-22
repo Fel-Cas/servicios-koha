@@ -4,28 +4,25 @@ import { CatalogRepository } from './repository/catalogRepository';
 
 @Injectable()
 export class CatalogService {
-  constructor(
-    private readonly catalogRepository: CatalogRepository
-  ){}
+    constructor(private readonly catalogRepository: CatalogRepository) {}
 
-  async getBooksByName(book: SearchBookDTO){
+    async getBooksByName(book: SearchBookDTO) {
+        const booksFound = await this.catalogRepository.getBooksByName(book.field);
+        if (booksFound.length === 0) {
+            throw new NotFoundException(`No se encontraron coincidencias con el libro ${book}`);
+        }
 
-    const booksFound = await this.catalogRepository.getBooksByName(book.field);
-    if(booksFound.length===0){
-      throw new NotFoundException(`No se encontraron coincidencias con el libro ${book}`);
+        return booksFound;
     }
 
-    return booksFound;
-  }
-
-  async getBookByISBN(isbn:string){
-    const bookFound= await this.catalogRepository.getBookByISBN(isbn);
-    if(bookFound.length===0){
-      throw new NotFoundException(`No se encontraron coincidencias con el libro ${isbn}`);
+    async getBookByISBN(isbn: string) {
+        const bookFound = await this.catalogRepository.getBookByISBN(isbn);
+        if (bookFound.length === 0) {
+            throw new NotFoundException(`No se encontraron coincidencias con el libro ${isbn}`);
+        }
+        return bookFound;
     }
-    return bookFound;
-  }
-  async getBorrowedBooks(cardnumber:String){
-    return await this.catalogRepository.getBorrowedBooks(cardnumber);
-  }
+    async getBorrowedBooks(cardnumber: String) {
+        return await this.catalogRepository.getBorrowedBooks(cardnumber);
+    }
 }

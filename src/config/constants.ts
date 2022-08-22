@@ -1,2 +1,2 @@
-export const TYPEORM_CONFIG='database.config';
-export const PORT ='PORT';
+export const TYPEORM_CONFIG = 'database.config';
+export const PORT = 'PORT';

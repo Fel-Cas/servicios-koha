@@ -8,21 +8,19 @@ import { CatalogModule } from './catalog/catalog.module';
 import databaseConfig from './config/database.config';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRootAsync({
-      inject:[ConfigService],
-      useFactory:(config: ConfigService)=>
-      config.get(TYPEORM_CONFIG)
-    })
-    ,
-    ConfigModule.forRoot({
-      isGlobal: true,
-      load:[databaseConfig]      
-    }),
-    UserModule,
-    CatalogModule
-  ],
-  controllers: [AppController],
-  providers: [],
+    imports: [
+        TypeOrmModule.forRootAsync({
+            inject: [ConfigService],
+            useFactory: (config: ConfigService) => config.get(TYPEORM_CONFIG),
+        }),
+        ConfigModule.forRoot({
+            isGlobal: true,
+            load: [databaseConfig],
+        }),
+        UserModule,
+        CatalogModule,
+    ],
+    controllers: [AppController],
+    providers: [],
 })
 export class AppModule {}
