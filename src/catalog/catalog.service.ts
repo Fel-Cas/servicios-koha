@@ -25,4 +25,7 @@ export class CatalogService {
     }
     return bookFound;
   }
+  async getBorrowedBooks(cardnumber:String){
+    return await this.catalogRepository.getBorrowedBooks(cardnumber);
+  }
 }
