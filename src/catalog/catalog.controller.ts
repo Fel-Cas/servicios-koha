@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { CatalogService } from './catalog.service';
 import { SearchBookDTO } from './dto';
 
@@ -16,5 +16,10 @@ export class CatalogController {
     async getBookByISBN(@Param('isbn') isbn: string) {
         const bookFound = await this.catalogService.getBookByISBN(isbn);
         return { meta: { message: `Información del libro` }, bookFound };
+    }
+    @Get('/historical-borrowed-books/:cardnumber')
+    async getHistoricalBooks(@Param('cardnumber', ParseIntPipe) cardnumber: number) {
+        const bookFound = await this.catalogService.getHistorialBorrowedBooks(cardnumber);
+        return { meta: { message: `Historial de libros prestados` }, bookFound };
     }
 }

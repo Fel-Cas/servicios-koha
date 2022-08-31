@@ -23,11 +23,12 @@ export class CatalogRepository {
         where bitm.isbn=${isbn}; `);
     }
 
-    async getBorrowedBooks(cardnumber: String) {
-        return await this.connection.query(`select b.title, b.author, b2.isbn  from statistics s 
+    async getHistoricalBorrowedBooks(cardnumber: number) {
+        return await this.connection.query(`select b.title, b.author, b2.isbn, s.datetime  from statistics s 
         inner join items i on i.itemnumber = s.itemnumber 
         inner join biblioitems b2 on i.biblioitemnumber =b2.biblioitemnumber 
         inner join  biblio b on b.biblionumber = i.biblionumber
-        where s.borrowernumber =${cardnumber};`);
+        inner join borrowers2 b3 on b3.borrowernumber =s.borrowernumber
+        where b3. =${cardnumber} `);
     }
 }

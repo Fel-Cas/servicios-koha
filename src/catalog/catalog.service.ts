@@ -22,7 +22,7 @@ export class CatalogService {
         }
         return bookFound;
     }
-    async getBorrowedBooks(cardnumber: String) {
-        return await this.catalogRepository.getBorrowedBooks(cardnumber);
+    async getHistorialBorrowedBooks(cardnumber: number) {
+        return await this.catalogRepository.getHistoricalBorrowedBooks(cardnumber);
     }
 }
