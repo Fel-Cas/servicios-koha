@@ -22,6 +22,15 @@ export class CatalogRepository {
         inner join items i on i.biblioitemnumber=bitm.biblioitemnumber
         where bitm.isbn=${isbn}; `);
     }
+    
+    async getBorrowedBook(cardnumber:number){
+        return await this.connection.query(`SELECT b.title as titulo ,b.author as autor, i.date_due as fecha_vencimiento, b3.isbn  from issues i 
+        inner join items i2 on  i.itemnumber=i2.itemnumber  
+        inner join biblio b on b.biblionumber = i2.biblionumber 
+        inner join biblioitems b3 on b3.biblionumber = b.biblionumber 
+        inner join borrowers2 b2 on b2.borrowernumber=i.borrowernumber 
+        where b2.cardnumber=${cardnumber} and i.date_due > CURRENT_TIMESTAMP() and i.returndate is not  null;`);
+    }
 
     async getHistoricalBorrowedBooks(cardnumber: number) {
         return await this.connection.query(`select b.title, b.author, b2.isbn, s.datetime  from statistics s 
