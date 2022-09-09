@@ -23,7 +23,7 @@ export class CatalogRepository {
         where bitm.isbn=${isbn}; `);
     }
     
-    async getBorrowedBook(cardnumber:number){
+    async getBorrowedBooks(cardnumber:number){
         return await this.connection.query(`SELECT b.title as titulo ,b.author as autor, i.date_due as fecha_vencimiento, b3.isbn  from issues i 
         inner join items i2 on  i.itemnumber=i2.itemnumber  
         inner join biblio b on b.biblionumber = i2.biblionumber 
