@@ -18,6 +18,11 @@ export class CatalogController {
         return { meta: { message: `Información del libro` }, bookFound };
     }
     @Get('/historical-borrowed-books/:cardnumber')
+    async getBorrowedBooks(@Param('cardnumber', ParseIntPipe) cardnumber: number) {
+        const bookFound = await this.catalogService.getBorrowedBooks(cardnumber);
+        return { meta: { message: `Libros en préstamo` }, bookFound };
+    }
+    @Get('/historical-borrowed-books/:cardnumber')
     async getHistoricalBooks(@Param('cardnumber', ParseIntPipe) cardnumber: number) {
         const bookFound = await this.catalogService.getHistorialBorrowedBooks(cardnumber);
         return { meta: { message: `Historial de libros prestados` }, bookFound };
