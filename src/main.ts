@@ -4,28 +4,31 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { PORT } from './config/constants';
 import { generateTypeormConfigFile } from './scripts';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.enableCors()
-  
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-  })
-  )
-  
-  const config=app.get(ConfigService)
-  const logger=new Logger();
-  
+    const app = await NestFactory.create(AppModule);
+    app.enableCors();
 
+    app.useGlobalPipes(
+        new ValidationPipe({
+            whitelist: true,
+            forbidNonWhitelisted: true,
+            transform: true,
+        })
+    );
 
-  generateTypeormConfigFile(config)
-  const port= config.get(PORT)
-  await app.listen(port);
+    const configSwagger = new DocumentBuilder().setTitle('Servicios Koha').build();
+    const document = SwaggerModule.createDocument(app, configSwagger);
+    SwaggerModule.setup('swagger/docs', app, document);
 
-  logger.log(`Server is running in ${await app.getUrl()}`);
+    const config = app.get(ConfigService);
+    const logger = new Logger();
+
+    generateTypeormConfigFile(config);
+    const port = config.get(PORT);
+    await app.listen(port);
+
+    logger.log(`Server is running in ${await app.getUrl()}`);
 }
 bootstrap();
