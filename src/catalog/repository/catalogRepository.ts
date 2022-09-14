@@ -18,13 +18,14 @@ export class CatalogRepository {
 
     async getBookByISBN(isbn: String) {
         return await this.connection
-            .query(`select title as titulo, author as autor, abstract as resumen, bitm.editionstatement  as edicion,i.barcode, i.onloan as fecha_prestamo  from biblio bi inner join biblioitems bitm on bi.biblionumber=bitm.biblionumber 
+            .query(`select title as titulo, author as autor, abstract as resumen, bitm.editionstatement  as edicion,i.barcode, i.onloan as fecha_prestamo, i.itemcallnumber, i.location, i.homebranch, i.stocknumber  from biblio bi inner join biblioitems bitm on bi.biblionumber=bitm.biblionumber 
         inner join items i on i.biblioitemnumber=bitm.biblioitemnumber
         where bitm.isbn=${isbn}; `);
     }
-    
-    async getBorrowedBooks(cardnumber:number){
-        return await this.connection.query(`SELECT b.title as titulo ,b.author as autor, i.date_due as fecha_vencimiento, b3.isbn  from issues i 
+
+    async getBorrowedBooks(cardnumber: number) {
+        return await this.connection
+            .query(`SELECT b.title as titulo ,b.author as autor, i.date_due as fecha_vencimiento, b3.isbn  from issues i 
         inner join items i2 on  i.itemnumber=i2.itemnumber  
         inner join biblio b on b.biblionumber = i2.biblionumber 
         inner join biblioitems b3 on b3.biblionumber = b.biblionumber 
