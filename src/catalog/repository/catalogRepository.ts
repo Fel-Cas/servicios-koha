@@ -30,7 +30,7 @@ export class CatalogRepository {
         inner join biblio b on b.biblionumber = i2.biblionumber 
         inner join biblioitems b3 on b3.biblionumber = b.biblionumber 
         inner join borrowers2 b2 on b2.borrowernumber=i.borrowernumber 
-        where b2.cardnumber=${cardnumber} and i.date_due > CURRENT_TIMESTAMP() and i.returndate is not  null;`);
+        where b2.cardnumber=${cardnumber} and i.date_due > CURRENT_TIMESTAMP() and i.returndate is  null;`);
     }
 
     async getHistoricalBorrowedBooks(cardnumber: number) {
@@ -39,6 +39,6 @@ export class CatalogRepository {
         inner join biblioitems b2 on i.biblioitemnumber =b2.biblioitemnumber 
         inner join  biblio b on b.biblionumber = i.biblionumber
         inner join borrowers2 b3 on b3.borrowernumber =s.borrowernumber
-        where b3. =${cardnumber} `);
+        where b3.cardnumber =${cardnumber} `);
     }
 }
