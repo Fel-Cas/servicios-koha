@@ -18,9 +18,20 @@ async function bootstrap() {
         })
     );
 
-    const configSwagger = new DocumentBuilder().setTitle('Servicios Koha').build();
+    const configSwagger = new DocumentBuilder()
+    .setTitle('Servicios Koha')
+    .setDescription('Esta es una API que se creo para prestar los servicios necesarios para que la aplicación BiblioApp pueda seguir funcionando. ')
+    .setVersion('1.0')
+    .addTag('BiblioApp')
+    .build();
     const document = SwaggerModule.createDocument(app, configSwagger);
-    SwaggerModule.setup('swagger/docs', app, document);
+    SwaggerModule.setup('swagger/docs', app, document,{
+        explorer:true,
+        swaggerOptions:{
+            filter:true,
+            showRequestDuration:true
+        }
+    });
 
     const config = app.get(ConfigService);
     const logger = new Logger();

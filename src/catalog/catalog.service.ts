@@ -9,7 +9,7 @@ export class CatalogService {
     async getBooksByName(book: SearchBookDTO) {
         const booksFound = await this.catalogRepository.getBooksByName(book.field);
         if (booksFound.length === 0) {
-            throw new NotFoundException(`No se encontraron coincidencias con el libro ${book}`);
+            throw new NotFoundException(`No se encontraron coincidencias con el libro ${book.field}`);
         }
 
         return booksFound;
